@@ -1,0 +1,179 @@
+class SinglyLinkedList {
+
+    private static class Node {
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    private Node head;
+
+    // 1. Insert at the beginning
+    public void addFirst(int data) {
+        Node newNode = new Node(data);
+
+        newNode.next = head;
+        head = newNode;
+    }
+
+    // 2. Insert at the end
+    public void addLast(int data) {
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        Node current = head;
+
+        while (current.next != null) {
+            current = current.next;
+        }
+
+        current.next = newNode;
+    }
+
+    // 3. Insert at a specific position (0-based)
+    public void addAtPosition(int data, int position) {
+        if (position < 0) {
+            return;
+        }
+
+        if (position == 0) {
+            addFirst(data);
+            return;
+        }
+
+        Node current = head;
+
+        // Reach the node just before the required position
+        for (int i = 0; current != null && i < position - 1; i++) {
+            current = current.next;
+        }
+
+        // Position is beyond the end of the list
+        if (current == null) {
+            return;
+        }
+
+        Node newNode = new Node(data);
+
+        newNode.next = current.next;
+        current.next = newNode;
+    }
+
+    // 4. Remove from the beginning
+    // Returns -1 if the list is empty
+    public int removeFirst() {
+        if (head == null) {
+            return -1;
+        }
+
+        int removedData = head.data;
+        head = head.next;
+
+        return removedData;
+    }
+    // 5. Remove from the end
+    // Returns -1 if the list is empty
+    public int removeLast() {
+        if (head == null) {
+            return -1;
+        }
+
+        // Only one node
+        if (head.next == null) {
+            return removeFirst();
+        }
+
+        Node current = head;
+
+        // Reach the second-last node
+        while (current.next.next != null) {
+            current = current.next;
+        }
+
+        int removedData = current.next.data;
+        current.next = null;
+
+        return removedData;
+    }
+
+    // 6. Remove from a specific position (0-based)
+    // Returns -1 if the position is invalid
+    public int removeAtPosition(int position) {
+        if (position < 0 || head == null) {
+            return -1;
+        }
+
+        if (position == 0) {
+            return removeFirst();
+        }
+
+        Node current = head;
+
+        // Reach the node just before the target position
+        for (int i = 0; current.next != null
+                && i < position - 1; i++) {
+            current = current.next;
+        }
+
+        // No node exists at the requested position
+        if (current.next == null) {
+            return -1;
+        }
+
+        int removedData = current.next.data;
+        current.next = current.next.next;
+
+        return removedData;
+    }
+
+    // 7. Remove the first occurrence of a value
+    // Returns true if removed, false otherwise
+    public boolean removeByValue(int value) {
+        if (head == null) {
+            return false;
+        }
+
+        if (head.data == value) {
+            removeFirst();
+            return true;
+        }
+
+        Node current = head;
+
+        while (current.next != null) {
+            if (current.next.data == value) {
+                current.next = current.next.next;
+                return true;
+            }
+
+            current = current.next;
+        }
+
+        return false;
+    }
+
+    // 8. Display the list
+    public void display() {
+        Node current = head;
+
+        while (current != null) {
+            System.out.print(current.data + " -> ");
+            current = current.next;
+        }
+
+        System.out.println("null");
+    }
+
+    // 9. Check whether the list is empty
+    public boolean isEmpty() {
+        return head == null;
+    }
+}
