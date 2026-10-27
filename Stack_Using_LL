@@ -1,3 +1,5 @@
+//The code of Singly Linked List is exactly the same. the only thing is here only addFirst() and removeFirst() are required to implement STACK
+
 class SinglyLinkedList {
 
     private static class Node {
