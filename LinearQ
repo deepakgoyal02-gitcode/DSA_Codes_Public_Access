@@ -1,0 +1,71 @@
+class LinearQueue {
+
+    private int[] queue;
+    private int front;
+    private int rear;
+
+    public LinearQueue(int capacity) {
+        queue = new int[capacity];
+        front = -1;
+        rear = -1;
+    }
+
+    // Insert an element at the rear
+    public void enqueue(int value)
+  {
+        if (rear == queue.length - 1) {
+            System.out.println("Queue is full");
+            return;
+        }
+
+        if (front == -1)
+            front = 0;
+
+        rear++;
+        queue[rear] = value;
+        System.out.println(value + " inserted");
+    }
+
+    // Remove an element from the front
+    public int dequeue() {
+
+        if (front == -1) {
+            System.out.println("Queue is empty");
+            return -1;
+        }
+
+        int value = queue[front];
+
+        if (front == rear) {
+            // Queue had only one element
+            front = -1;
+            rear = -1;
+        } else
+            front++;
+
+        return value;
+    }
+
+    // View the front element
+    public int peek() {
+        if (front == -1) {
+            System.out.println("Queue is empty");
+            return -1;
+        }
+        return queue[front];
+    }
+    // Check whether the queue is empty
+    public boolean isEmpty() {return front == -1;}
+
+    // Display all active elements
+    public void display() {
+        if (front == -1) {
+            System.out.println("Queue is empty");
+            return;
+        }
+        for (int i = front; i <= rear; i++)
+            System.out.print(queue[i] + " ");
+
+        System.out.println();
+    }
+}
