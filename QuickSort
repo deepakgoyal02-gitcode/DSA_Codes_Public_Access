@@ -1,39 +1,47 @@
-    static int partition(int[] arr, int low, int high)
+public static int quickPartition(int[] arr, int left, int right, int pIndex)
     {
-        int pivot = arr[high];
+        while(true)
+        {
+            //scan from right to left
+                while ((arr[pIndex] <= arr[right]) && (pIndex != right))
+                    right--;
 
-        int i = low - 1;
+                if (pIndex == right)
+                    return pIndex;
 
-        for (int j = low; j <= high - 1; j++) {
-            if (arr[j] < pivot) {
-                i++;
-                swap(arr, i, j);
-            }
+                if (arr[pIndex] > arr[right])
+                {
+                    swap(arr, pIndex, right);
+                    pIndex = right;
+                }
+
+            //scan from left to right
+                while ((arr[pIndex] >= arr[left]) && (pIndex != left))
+                    left++;
+
+                if(pIndex==left)
+                    return pIndex;
+
+                if(arr[pIndex] < arr[left])
+                {
+                    swap(arr,pIndex,left);
+                    pIndex = left;
+                }
+
         }
-        swap(arr, i + 1, high);
-        return i + 1;
     }
-
     static void swap(int[] arr, int i, int j) {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
-
-    static void quickSort(int[] arr, int low, int high) {
+    public static void quickSort(int[] arr,int low,int high)
+    {
         if (low < high)
         {
-            int partitionIndex = partition(arr, low, high);
+            int partitionIndex = quickPartition(arr, low, high, high);
 
             quickSort(arr, low, partitionIndex - 1);
             quickSort(arr, partitionIndex + 1, high);
         }
-    }
-
-    public static void main(String[] args)
-    {
-        int[] arr = {33, 66, 11, 5, 77, 81, 94, 1};
-        int n = arr.length;
-        quickSort(arr, 0, n - 1);
-        System.out.print(Arrays.toString(arr));
     }
