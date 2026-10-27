@@ -1,0 +1,105 @@
+class CircularLinkedList {
+
+    private static class Node {
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    private Node head;
+
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+
+        // Empty list
+        if (head == null) {
+            head = newNode;
+            newNode.next = head;
+            return;
+        }
+
+        Node last = head;
+
+        while (last.next != head) {
+            last = last.next;
+        }
+
+        last.next = newNode;
+        newNode.next = head;
+    }
+
+    public int removeFirst() {
+        if (head == null) {
+            return -1;
+        }
+
+        int removedData = head.data;
+
+        // Only one node
+        if (head.next == head) {
+            head = null;
+            return removedData;
+        }
+
+        Node last = head;
+
+        while (last.next != head) {
+            last = last.next;
+        }
+
+        head = head.next;
+        last.next = head;
+
+        return removedData;
+    }
+
+    public boolean removeByValue(int value) {
+        if (head == null) {
+            return false;
+        }
+
+        // Value is in the first node
+        if (head.data == value) {
+            removeFirst();
+            return true;
+        }
+
+        Node current = head;
+
+        while (current.next != head) {
+            if (current.next.data == value) {
+                current.next = current.next.next;
+                return true;
+            }
+
+            current = current.next;
+        }
+
+        return false;
+    }
+
+    public void display() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+
+        Node current = head;
+
+        do {
+            System.out.print(current.data + " -> ");
+            current = current.next;
+        } while (current != head);
+
+        System.out.println("(back to head)");
+    }
+
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+}
