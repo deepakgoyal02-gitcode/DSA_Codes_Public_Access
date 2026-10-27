@@ -1,3 +1,5 @@
+public class stkk {
+}
 class SinglyLinkedList {
 
     private static class Node {
@@ -11,19 +13,17 @@ class SinglyLinkedList {
     }
 
     private Node head;
-
-    // PUSH: Insert at the beginning
-    public void push(int data) {
+    
+    public void addFirst(int data) {
         Node newNode = new Node(data);
 
         newNode.next = head;
         head = newNode;
     }
-
-    // POP: Remove and return the top element
-    public int pop() {
+    
+    public int removeFirst() {
         if (head == null) {
-            throw new RuntimeException("Stack is empty");
+            return -1;
         }
 
         int removedData = head.data;
@@ -31,26 +31,9 @@ class SinglyLinkedList {
 
         return removedData;
     }
-
-    // PEEK: Return the top element without removing it
-    public int peek() {
-        if (head == null) {
-            throw new RuntimeException("Stack is empty");
-        }
-
-        return head.data;
-    }
-
-    // Check whether the stack is empty
-    public boolean isEmpty() {
-        return head == null;
-    }
-
-    // Display the stack from top to bottom
+    
     public void display() {
         Node current = head;
-
-        System.out.print("TOP -> ");
 
         while (current != null) {
             System.out.print(current.data + " -> ");
@@ -59,27 +42,36 @@ class SinglyLinkedList {
 
         System.out.println("null");
     }
+    
+    public boolean isEmpty() {return head == null;}
 }
-
-public class Main {
+class Main {
     public static void main(String[] args) {
 
         SinglyLinkedList stack = new SinglyLinkedList();
 
-        stack.push(10);
-        stack.push(20);
-        stack.push(30);
+        // PUSH
+        stack.addFirst(10);
+        stack.addFirst(20);
+        stack.addFirst(30);
 
+        System.out.println("Stack:");
         stack.display();
 
-        System.out.println("Top element: " + stack.peek());
+        // POP
+        System.out.println("Popped: " + stack.removeFirst());
 
-        System.out.println("Popped: " + stack.pop());
-
+        System.out.println("Stack after pop:");
         stack.display();
 
-        System.out.println("Popped: " + stack.pop());
-        System.out.println("Popped: " + stack.pop());
+        // PUSH
+        stack.addFirst(40);
+
+        System.out.println("Stack after push(40):");
+        stack.display();
+
+        // POP
+        System.out.println("Popped: " + stack.removeFirst());
 
         System.out.println("Is stack empty? " + stack.isEmpty());
     }
