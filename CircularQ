@@ -1,0 +1,85 @@
+class CircularQueue {
+
+    private int[] queue;
+    private int front;
+    private int rear;
+
+    public CircularQueue(int capacity) {
+        queue = new int[capacity];
+        front = -1;
+        rear = -1;
+    }
+
+    // Insert an element
+    public void enqueue(int value) {
+
+        // Check whether the queue is full
+        if ((rear + 1) % queue.length == front) //if +1 makes it go beyond queue
+        {
+            System.out.println("Queue is full");
+            return;
+        }
+
+        // First element
+        if (front == -1) {
+            front = 0;
+            rear = 0;
+        } else
+            rear = (rear + 1) % queue.length;
+        
+        queue[rear] = value;
+        System.out.println(value + " inserted");
+    }
+
+    // Remove an element
+    public int dequeue() {
+
+        if (front == -1) {
+            System.out.println("Queue is empty");
+            return -1;
+        }
+
+        int value = queue[front];
+
+        // Only one element was present
+        if (front == rear) {
+            front = -1;
+            rear = -1;
+        } else
+            front = (front + 1) % queue.length;
+
+        return value;
+    }
+
+    // View the front element
+    public int peek() {
+
+        if (front == -1) {
+            System.out.println("Queue is empty");
+            return -1;
+        }
+        return queue[front];
+    }
+
+    // Check whether the queue is empty
+    public boolean isEmpty() { return front == -1;    }
+
+    // Display elements in queue order
+    public void display() {
+
+        if (front == -1)
+        {
+            System.out.println("Queue is empty");
+            return;
+        }
+        int i = front;
+        while (true) {
+            System.out.print(queue[i] + " ");
+            if (i == rear)
+                break;
+            i = (i + 1) % queue.length;
+        }
+
+        System.out.println();
+    }
+}
