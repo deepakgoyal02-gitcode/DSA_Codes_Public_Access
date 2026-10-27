@@ -1,0 +1,66 @@
+//This is implementation of double ended queue. from the normal circular queue, this deque(deck) will have only 2 extra methods. Only those methods are getting mentioned here
+public class DeckQ {
+    private int[] deque;
+    private int front;
+    private int rear;
+
+    public DeckQ(int capacity) {
+        deque = new int[capacity];
+        front = -1;
+        rear = -1;
+    }
+
+    // Insert at the front
+    public void insertFront(int value) {
+        if (isFull()) {
+            System.out.println("Deque is full");
+            return;
+        }
+        if (isEmpty()) {
+            front = 0;
+            rear = 0;
+        } else {
+            front = (front - 1 + deque.length)
+                    % deque.length;
+        }
+        deque[front] = value;
+        System.out.println(value + " inserted at front");
+    }
+
+    // Remove from the rear
+    public int deleteRear() {
+        if (isEmpty()) {
+            System.out.println("Deque is empty");
+            return -1;
+        }
+        int value = deque[rear];
+        if (front == rear) {
+            front = -1;
+            rear = -1;
+        } else {
+            rear = (rear - 1 + deque.length)
+                    % deque.length;
+        }
+        return value;
+    }
+
+
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Deque is empty");
+            return;
+        }
+        int i = front;
+        while (true) {
+            System.out.print(deque[i] + " ");
+            if (i == rear)
+                break;
+
+            i = (i + 1) % deque.length;
+        }
+        System.out.println();
+    }
+    public boolean isEmpty() {return front == -1;}
+
+    public boolean isFull() {return (rear + 1) % deque.length == front;}
+}
