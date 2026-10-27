@@ -1,5 +1,3 @@
-public class stkk {
-}
 class SinglyLinkedList {
 
     private static class Node {
