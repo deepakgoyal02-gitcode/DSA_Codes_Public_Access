@@ -1,0 +1,207 @@
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class SinglyLinkedList {
+    public Node head;
+
+    public void insertSorted(int data)
+    {
+        Node newNode = new Node(data);
+
+        if (head == null || head.data >= data) {
+            newNode.next = head;
+            head = newNode;
+            return;
+        }
+
+        Node current = head;
+
+        while (current.next != null && current.next.data < data) {
+            current = current.next;
+        }
+
+        newNode.next = current.next;
+        current.next = newNode;
+    }
+
+    public Node addLast(int data) {
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            head = newNode;
+            return newNode;
+        }
+
+        Node current = head;
+
+        while (current.next != null) {
+            current = current.next;
+        }
+
+        current.next = newNode;
+        return newNode;
+    }
+
+    public void addCycleLast(int data) {
+        Node newNode = addLast(data);
+        newNode.next = head;
+    }
+
+    public void display() {
+        Node current = head;
+
+        while (current != null) {
+            System.out.print(current.data + " -> ");
+            current = current.next;
+        }
+
+        System.out.println("null");
+    }
+
+       public boolean isEmpty()
+       {
+        return head == null;
+        }
+}
+
+
+class linkedlistLeetCode
+{
+    public static void main(String[] args) {
+        SinglyLinkedList listHead = createSortedList();
+        Node SListHead = listHead.head;
+
+        System.out.println(getLength(SListHead));
+        System.out.println(search(SListHead,400));
+
+        deleteDuplicates(SListHead);
+        listHead.display();
+
+        System.out.println(findMiddleNode(SListHead).data);
+
+        System.out.println(getNthFromEnd(SListHead,3).data);
+
+        listHead.head = reverseList(SListHead);
+        listHead.display();
+
+        System.out.println("This list has cycle : " + hasCycle(SListHead));
+    }
+    
+    public static SinglyLinkedList createSortedList() {
+        SinglyLinkedList lList = new SinglyLinkedList();
+        lList.insertSorted(100);
+        lList.insertSorted(20);
+        lList.insertSorted(70);
+        lList.insertSorted(40);
+        lList.insertSorted(-50);
+        lList.insertSorted(50);
+        lList.insertSorted(600);
+        lList.insertSorted(7);
+        lList.insertSorted(-80);
+        lList.insertSorted(90);
+        lList.insertSorted(-1000);
+        //lList.addCycleLast(1100);
+        lList.display();
+        return lList;
+    }
+
+    public static int getLength(Node head) {
+        int length = 0;
+        Node current = head;
+        while (current != null) {
+            length++;             
+            current = current.next; 
+        }
+        return length;
+    }
+
+    public static boolean search(Node head, int target) {
+        Node current = head;
+
+        while (current != null)
+        {
+            if (current.data == target)
+                return true;
+            current = current.next;
+        }
+
+        return false;
+    }
+
+    public static Node deleteDuplicates(Node head) {
+
+        Node current = head;
+
+        while (current != null && current.next != null)
+        {
+            if (current.data == current.next.data)
+                current.next = current.next.next; 
+             else
+                current = current.next; 
+        }
+        return head;
+    }
+
+    public static Node findMiddleNode(Node head) {
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null)
+        {
+            slow = slow.next;       // Moves 1 step
+            fast = fast.next.next;  // Moves 2 steps
+        }
+        return slow;
+    }
+
+    public static Node reverseList(Node head)
+    {
+        Node prev = null;
+        Node current = head;
+        while (current != null)
+        {
+            Node nextTemp = current.next;     
+            current.next = prev;              
+            prev = current;                   
+            current = nextTemp;               
+        }
+        return prev;
+    }
+
+    public static Node getNthFromEnd(Node head, int n) {
+               Node first = head;
+        Node second = head;
+        for (int i = 0; i < n; i++) {
+            if (first == null)
+                return null;
+            first = first.next;
+        }
+        while (first != null) {
+            first = first.next;
+            second = second.next;
+        }
+        return second;
+    }
+
+    public static boolean hasCycle(Node head) {
+        if (head == null || head.next == null)
+            return false; 
+        Node slow = head;
+        Node fast = head; 
+        while (fast != null && fast.next != null) {
+            slow = slow.next;       
+            fast = fast.next.next;  
+            if (slow == fast)
+                return true;
+        }
+        return false;
+    }
+
+
+}
