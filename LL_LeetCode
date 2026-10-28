@@ -75,6 +75,8 @@ class SinglyLinkedList {
 class linkedlistLeetCode
 {
     public static void main(String[] args) {
+        int[] arr1 = {100,20,70,40,-50};
+        int[] arr2 = {50,600,7,-80,90,-1000};
         SinglyLinkedList listHead = createSortedList();
         Node SListHead = listHead.head;
 
@@ -92,6 +94,17 @@ class linkedlistLeetCode
         listHead.display();
 
         System.out.println("This list has cycle : " + hasCycle(SListHead));
+
+        SinglyLinkedList listHead1 = createSortedList(arr1);
+        SinglyLinkedList listHead2 = createSortedList(arr2);
+
+        Node combineList = merge(listHead1.head,listHead2.head);
+
+        while (combineList != null)
+        {
+            System.out.print(combineList.data + " -> ");
+            combineList = combineList.next;
+        }
     }
     
     public static SinglyLinkedList createSortedList() {
@@ -108,6 +121,15 @@ class linkedlistLeetCode
         lList.insertSorted(90);
         lList.insertSorted(-1000);
         //lList.addCycleLast(1100);
+        lList.display();
+        return lList;
+    }
+    public static SinglyLinkedList createSortedList(int[] arr) 
+    {
+        SinglyLinkedList lList = new SinglyLinkedList();
+
+        for(int value:arr)
+            lList.insertSorted(value);
         lList.display();
         return lList;
     }
@@ -202,6 +224,31 @@ class linkedlistLeetCode
         }
         return false;
     }
+   public static Node merge(Node list1, Node list2)
+    {
+        Node l3Head = new Node(0), l3curr = l3Head;
 
+        while (list1 != null && list2 != null)
+        {
+            if (list1.data <= list2.data)
+            {
+                l3curr.next = list1;
+                list1 = list1.next;
+            }
+            else
+            {
+                l3curr.next = list2;
+                list2 = list2.next;
+            }
+            l3curr = l3curr.next;
+        }
+
+        if(list1!=null)
+            l3curr.next = list1;
+        else
+            l3curr.next = list2;
+
+        return l3Head.next;
+    }
 
 }
