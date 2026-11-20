@@ -1,0 +1,157 @@
+class recursion {
+ 
+    static long power(int a, int b) {
+        if (b == 0) {
+            return 1;
+        } else {
+            return a * power(a, b - 1);
+        }
+    }
+
+    static String reverse(String s) {
+        if (s.length() <= 1) {
+            return s;
+        } else {
+            return reverse(s.substring(1)) + s.charAt(0);
+        }
+    }
+
+    static boolean isPal(String s, int l, int r) {
+        if (l >= r)
+            return true;
+
+        if (s.charAt(l) != s.charAt(r))
+            return false;
+
+        return isPal(s, l + 1, r - 1);
+    }
+
+    static int digitSum(int n) {
+        if (n == 0) {
+            return 0;
+        } else {
+            return n % 10 + digitSum(n / 10);
+        }
+    }
+
+    static int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        } else {
+            return gcd(b, a % b);
+        }
+    }
+
+    static long fastPow(long a, int b) {
+        if (b == 0) {
+            return 1;
+        }
+
+        long half = fastPow(a, b / 2);
+
+        if (b % 2 == 0) {
+            return half * half;
+        } else {
+            return half * half * a;
+        }
+    }
+  
+/*
+INPUT - abc
+All subsequences
+Characters CAN be SKIPPED, but original order is maintained.
+a, b, c, ab, ac, bc, abc
+Non-empty total = (2^n -1=7)
+Including the empty subsequence = (2^n=8)
+ */
+    static void subsequences(String s, int i, String cur) {
+        if (i == s.length()) {
+            System.out.print(cur + " ");
+            return;
+        }
+        subsequences(s, i + 1, cur + s.charAt(i)); // include
+        subsequences(s, i + 1, cur); // exclude
+    } // O(2^n)
+
+    /*
+    INPUT - abc
+    All subsequences
+    Characters can be skipped, but original order is maintained.
+    a, b, c, ab, ac, bc, abc
+    Non-empty total = (2^n -1=7)
+    Including the empty subsequence = (2^n=8)
+    */
+    static void printSubsequencesUsingBitwise(String s) {
+        int n = s.length();
+
+        for (int mask = 1; mask < (1 << n); mask++) {
+            String sub = "";
+
+            for (int i = 0; i < n; i++) {
+                if ((mask & (1 << i)) != 0) {
+                    sub += s.charAt(i);
+                }
+            }
+            System.out.println(sub);
+        }
+    }
+
+    /*
+    INPUT abc
+    Print all substrings
+    Characters MUST be CONTINUOUS i.e. characters CANNOT be SKIPPED.
+            a, ab, abc, b, bc, c
+            Total = n(n+1)/2=6
+    */
+    static void printSubstrings(String s) {  //Iterative
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i + 1; j <= s.length(); j++) {
+                System.out.println(s.substring(i, j));
+            }
+        }
+    }
+
+  
+/*
+    INPUT - abc
+    All permutations
+    Rearrange all characters in every possible order.
+            abc, acb, bac, bca, cab, cba
+    Total = (n!=6), when all characters are distinct.
+*/
+
+    static void permute(char[] a, int i) {
+        if (i == a.length) {
+            System.out.print(new String(a));
+            System.out.print(" ");
+            return;
+        }
+        for (int j = i; j < a.length; j++) {
+            swap(a, i, j);
+            permute(a, i + 1);
+            swap(a, i, j); // choose, recurse, undo
+        }
+    }
+
+    static void swap(char[] a, int i, int j) {
+        char t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+
+
+    static void hanoi(int n, char from, char to, char aux) {
+        if (n == 0) return;
+        hanoi(n - 1, from, aux, to);
+        System.out.println("Move disk " + n + " from " + from + " to " + to);
+        hanoi(n - 1, aux, to, from);
+    } // 2^n - 1 moves
+
+    public static void main(String[] args)
+    {
+        //subsequences("abcd",0,"");
+        //binary(3, "");
+        char[] a = {'a','b','c'};
+        permute(a,0);
+    }
+}
