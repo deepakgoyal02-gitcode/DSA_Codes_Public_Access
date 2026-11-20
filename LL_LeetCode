@@ -182,21 +182,7 @@ class linkedlistLeetCode
         return slow;
     }
 
-    public static Node reverseList(Node head)
-    {
-        Node prev = null;
-        Node current = head;
-        while (current != null)
-        {
-            Node nextTemp = current.next;     
-            current.next = prev;              
-            prev = current;                   
-            current = nextTemp;               
-        }
-        return prev;
-    }
-
-    public static Node getNthFromEnd(Node head, int n) {
+public static Node getNthFromEnd(Node head, int n) {
                Node first = head;
         Node second = head;
         for (int i = 0; i < n; i++) {
