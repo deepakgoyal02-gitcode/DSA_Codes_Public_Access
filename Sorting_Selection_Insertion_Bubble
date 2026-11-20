@@ -1,0 +1,94 @@
+public class mySelectionSort {
+    static void selectionSort(int[] arr){
+            for (int i = 0; i < arr.length; i++) {
+            // Assume the current position holds the maximum element
+            int max_idx = i;
+            // Iterate through the unsorted portion to find the actual maximum
+            for (int j = i+1 ; j < arr.length; j++) {
+                if (arr[i] >= arr[j])
+                {
+                    // Update max_idx if a larger element is found
+                    max_idx = j;
+                }
+            }
+            // Move maximum element to its correct position
+            int swapTemp = arr[i];
+            arr[i] = arr[max_idx];
+            arr[max_idx] = swapTemp;
+        }
+    }
+    public static void main(String[] args)
+    {
+        int[] arr = {64, 34, 25, 12, 22, 11, 90, 5,5};
+        System.out.print("Original array: ");
+        for(int i = 0;i<arr.length;i++)
+        {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+        selectionSort(arr);
+        System.out.print("Sorted array: ");
+        for(int i = 0;i<arr.length;i++)
+        {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
+//////////////////////////////////////////////
+
+public class InsertionSort {
+    public static void main(String[] args) {
+        int[] arrayI = {12,11,13,5,6,15,89,20,90,0,59,100};
+        for (int i = 1; i < arrayI.length; i++) {
+            int key = arrayI[i];
+            int j = 0;
+            while( (arrayI[j] < key)) {
+                j++;
+            }
+            insertAtLocation(arrayI,i,j);
+        }
+        for(int i = 0;i<arrayI.length;i++)
+        {
+            System.out.print(arrayI[i] + " ");
+        }
+    }
+    static void insertAtLocation(int[] arr,int keyLocation, int insertLocation)
+    {
+        int key = arr[keyLocation];
+        while(insertLocation!=keyLocation)
+        {
+            arr[keyLocation] = arr[keyLocation-1];
+            keyLocation--;
+        }
+        arr[insertLocation] = key;
+    }
+}
+
+////////////////////////////////////////////////////////////
+
+public class BubbleSort {
+    public static void main(String[] args) {
+        int[] myArray = {64, 34, 25, 12, 22, 11, 90, 5,5};
+        bubbleSort(myArray);
+
+        for(int i = 0;i<myArray.length;i++)
+        {
+            System.out.print(myArray[i] + " ");
+        }
+    }
+    static void bubbleSort(int numbers[]) {
+        for (int i = 0; i < numbers.length; i++)
+        {
+                for (int j = 0; j < numbers.length-1; j++)
+            {
+                if (numbers[j] >= numbers[j+1])
+                {
+                    int temp = numbers[j];
+                    numbers[j] = numbers[j+1];
+                    numbers[j+1] = temp;
+                }
+            }
+        }
+    }
+}
+
