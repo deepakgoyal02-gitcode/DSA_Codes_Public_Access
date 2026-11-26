@@ -144,6 +144,28 @@ class linkedlistLeetCode
         return length;
     }
 
+    public static Node reverseList(Node head)
+    {
+        Node prev = null;
+        Node current = head;
+
+        while (current != null)
+        {
+            Node nextTemp = current.next;     
+            current.next = prev;              
+            prev = current;                   
+            current = nextTemp;              
+        }
+
+       
+        return prev;
+    }
+
+
+
+
+
+
     public static boolean search(Node head, int target) {
         Node current = head;
 
